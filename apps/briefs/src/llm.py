@@ -5,14 +5,11 @@ from dotenv import load_dotenv
 load_dotenv()
 
 client = OpenAI(
-    # This is the default and can be omitted
-    api_key=os.environ.get("GOOGLE_API_KEY"),
-    base_url="https://generativelanguage.googleapis.com/v1beta/openai/",
+    api_key=os.environ.get("DEEPSEEK_API_KEY"),
+    base_url="https://api.deepseek.com/v1",
 )
 
-
 def call_llm(model: str, messages: list[dict], temperature: float = 0):
-
     response = client.chat.completions.create(
         model=model,
         messages=messages,
@@ -24,11 +21,3 @@ def call_llm(model: str, messages: list[dict], temperature: float = 0):
         response.usage.prompt_tokens,
         response.usage.completion_tokens,
     )
-
-    # return {
-    #     "answer": response.choices[0].message.content,
-    #     "usage": {
-    #         "input_tokens": response.usage.prompt_tokens,
-    #         "output_tokens": response.usage.completion_tokens,
-    #     },
-    # }
